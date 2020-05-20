@@ -29,8 +29,8 @@ fun max(a: Int, b: Int) = if (a > b) a else b
 ### 2.2 클래스와 프로퍼티
 - 필드와 접근자(getter, setter)를 한데 묶어 프로퍼티(property)라 부른다
 - 클래스에서 프로퍼티를 선언할 때 val나 var를 사용
- - val: 읽기 전용 프로퍼티로, 코틀린은 (비공개) 필드와 필드를 읽는 단순한 (공개) getter를 만들어낸다
- - var: 쓸 수 있는 프로퍼티로, 코틀린은 (비공개) 필드, (공개) getter, (공개) setter를 만들어낸다
+  - val: 읽기 전용 프로퍼티로, 코틀린은 (비공개) 필드와 필드를 읽는 단순한 (공개) getter를 만들어낸다
+  - var: 쓸 수 있는 프로퍼티로, 코틀린은 (비공개) 필드, (공개) getter, (공개) setter를 만들어낸다
 ```
 class Person(val name: String)
 
@@ -56,12 +56,28 @@ enum class Color {
 
 #### when
 - 코틀린의 when은 자바의 switch와 비슷하지만 더 강력하다
- - when의 분기 조건은 임의의 객체를 허용한다
- - 인자가 없는 when 식을 사용하려면 각 분기의 조건이 boolean 결과를 계산하는 식이어야 한다
+  - when의 분기 조건은 임의의 객체를 허용한다
+  - 인자가 없는 when 식을 사용하려면 각 분기의 조건이 boolean 결과를 계산하는 식이어야 한다
 ```
 fun getWarmth(color: Color) = when(color) {
     RED, ORANGE, YELLOW -> "warm"
     GREEN -> "neutral"
     BLUE, INDIGO, VIOLET -> "cold"
 }
+```
+
+#### 스마트 캐스트 (smart cast)
+- 스마트 캐스트는 타입 검사와 타입 캐스트, 타입 강제 변환을 하나로 엮은 기능이다
+- 어떤 변수의 타입을 검사하고 나면 굳이 그 변수를 캐스팅하지 않아도 검사한 타입의 변수처럼 사용할 수 있다. 그런 경우 컴파일러가 스마트 캐스트를 활용해 자동으로 타입을 바꿔준다
+  - is를 사용해 변수 타입을 검사한다
+  - 원하는 타입으로 명시적으로 타입 캐스팅하려면 as를 사용한다
+```
+fun eval(e: Expr): Int =
+    if (e is Num) {
+        e.value
+    } else if (e is Sum) {
+        eval(e.right) + eval(e.left)
+    } else {
+        throw IllegalArgumentException("Unknown expression")
+    }
 ```
