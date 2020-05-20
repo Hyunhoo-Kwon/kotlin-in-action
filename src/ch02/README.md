@@ -81,3 +81,28 @@ fun eval(e: Expr): Int =
         throw IllegalArgumentException("Unknown expression")
     }
 ```
+
+### 2.4 대상을 이터레이션
+#### 루프
+- 코틀린의 while, do-while 루프를 자바와 동일하다
+- 코틀린에서는 컬렉션에 대한 이터레이션을 위해 for .. in 루프를 사용한다
+```
+for (i in 1..100)
+```
+- 맵에 대해 이터레이션 하는 방법
+```
+val binaryReps = TreeMap<Char, String>()
+
+for ((letter, binary) in binaryReps) {
+    println("$letter = $binary")
+}
+```
+
+#### 범위
+- 1..5와 같은 식은 범위를 만들어낸다
+- 어떤 값이 범위 안에 들어 있거나 들어있지 않은지 검사하기 위해서 in이나 !in을 사용한다
+- 비교 가능한 클래스라면 그 클래스의 인스턴스 객체를 사용해 범위를 만들 수 있다
+```
+fun isLetter(c: Char) = c in 'a'..'z' || c in 'A'..'Z'
+fun isNotDigit(c: Char) = c !in '0'..'9'
+```
