@@ -14,6 +14,11 @@ fun max(a: Int, b: Int): Int {
 fun max(a: Int, b: Int) = if (a > b) a else b
 ```
 
+##### 문(statement)과 식(expression)의 구분
+- 문은 자신을 둘러싸고 있는 가장 안쪽 블록의 최상위 요소로 존재하며 아무런 값을 만들어내지 않는다
+- 식은 값을 만들어 내며 다른 식의 하위 요소로 계산에 참여할 수 있다
+- 자바에서 모든 제어 구조가 문인 반면 코틀린에서는 루프를 제외한 대부분의 제어 구조(if, when, try 등)가 식이다
+
 #### 변수
 - val (value): 변경 불가능한 변수
 - var (variable) 변경 가능한 변수
@@ -37,5 +42,26 @@ println(person.name) // 프로퍼티 이름을 직접 사용해도 코틀린이 
 class Rectangle(val height: Int, val width: Int) {
     val isSquare: Boolean
         get() = height == width
+}
+```
+
+### 2.3 선택 표현과 처리
+#### enum
+- enum 클래스 정의 방법
+```
+enum class Color {
+    RED, ORANGE, YELLOW, GREEN, BLUE, INDIGO, VIOLET
+}
+```
+
+#### when
+- 코틀린의 when은 자바의 switch와 비슷하지만 더 강력하다
+ - when의 분기 조건은 임의의 객체를 허용한다
+ - 인자가 없는 when 식을 사용하려면 각 분기의 조건이 boolean 결과를 계산하는 식이어야 한다
+```
+fun getWarmth(color: Color) = when(color) {
+    RED, ORANGE, YELLOW -> "warm"
+    GREEN -> "neutral"
+    BLUE, INDIGO, VIOLET -> "cold"
 }
 ```
