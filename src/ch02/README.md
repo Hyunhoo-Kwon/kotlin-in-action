@@ -58,6 +58,7 @@ enum class Color {
 - 코틀린의 when은 자바의 switch와 비슷하지만 더 강력하다
   - when의 분기 조건은 임의의 객체를 허용한다
   - 인자가 없는 when 식을 사용하려면 각 분기의 조건이 boolean 결과를 계산하는 식이어야 한다
+  - if나 when 모두 분기에 블록을 사용할 수 있다. 그런 경우 블록의 마지막 문장이 블록 전체의 결과가 된다
 ```
 fun getWarmth(color: Color) = when(color) {
     RED, ORANGE, YELLOW -> "warm"
@@ -85,7 +86,7 @@ fun eval(e: Expr): Int =
 ### 2.4 대상을 이터레이션
 #### 루프
 - 코틀린의 while, do-while 루프를 자바와 동일하다
-- 코틀린에서는 컬렉션에 대한 이터레이션을 위해 for .. in 루프를 사용한다
+- 코틀린에서는 컬렉션에 대한 이터레이션을 위해 for <아이템> in <원소> 루프를 사용한다
 ```
 for (i in 1..100)
 ```
@@ -108,3 +109,25 @@ fun isNotDigit(c: Char) = c !in '0'..'9'
 ```
 
 ### 2.5 예외 처리
+#### throw
+- 코틀린의 예외 처리는 자바와 비슷하다. 함수는 정상적으로 종료할 수 있지만 오류가 발생하면 예외를 던질 (throw) 수 있다
+```
+if (percentage !in 0..100) {
+    throw IllegalArgumentException("A percentage value must be between 0 and 100: $percentage")
+}
+```
+
+#### try, catch, finally
+- 예외를 처리하려면 try와 catch, finally 절을 함께 사용한다
+- 코틀린에서는 함수가 던질 수 있는 예외를 선언 (throws)하지 않아도 된다
+```
+fun readNumber(reader: BufferedReader) {
+    val number = try {
+        Integer.parseInt(reader.readLine())
+    } catch (e: NumberFormatException) {
+        null
+    } finally {
+        reader.close()
+    }
+}
+```
